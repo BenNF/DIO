@@ -5,7 +5,7 @@ import {Redirect} from "react-router-dom"
 import {connect} from "react-redux"
 import {HOME, SIGNUP} from "../routing/routes"
 import "./styles.css"
-import { LoginSucess } from "../actions/authActions"
+import { LoginSuccess } from "../actions/authActions"
 
 
 const Login = (props) => {
@@ -87,7 +87,7 @@ const mapStateToProps = (state ) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        loginSuccess: (user) => dispatch(LoginSucess(user))
+        loginSuccess: (user) => dispatch(LoginSuccess(user))
     }
 }
 export default connect(mapStateToProps, mapDispatchToProps)(Login);

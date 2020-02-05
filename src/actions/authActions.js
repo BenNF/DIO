@@ -1,6 +1,5 @@
 
-export const LoginSucess = (user) =>{
-    console.log("do login?")
+export const LoginSuccess = (user) =>{
     return {
         type: "LOGIN_SUCCESS",
         payload: user

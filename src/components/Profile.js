@@ -1,11 +1,22 @@
 import React from 'react'
-
+import {LoginSuccess} from "../actions/authActions"
+import {connect} from "react-redux"
 
 const Profile = (props) => {
-    console.log(props)
     return (
         <h1>Profile</h1>
     )
 }
 
-export default Profile;
+const mapStateToProps = (state) => {
+    return {
+        profile: state.profile
+    }
+}
+
+const mapDispatchToProps = (dispatch) => {
+    return{
+        loginAction : (user) => dispatch(LoginSuccess(user))
+    }
+}
+export default connect(mapStateToProps, mapDispatchToProps)(Profile);

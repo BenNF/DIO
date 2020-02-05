@@ -5,7 +5,6 @@ import auth from "./auth"
 
 export default function createAndConfigStore() {
 
-
     return createStore(combineReducers({
         events,
         auth,

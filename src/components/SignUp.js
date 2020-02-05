@@ -4,7 +4,7 @@ import {Form, Checkbox, Button, Message} from "semantic-ui-react"
 import {Redirect} from "react-router-dom"
 import {connect} from "react-redux"
 import {HOME, SIGNUP} from "../routing/routes"
-import {LoginSucess} from "../actions/authActions"
+import {LoginSuccess} from "../actions/authActions"
 import "./styles.css"
 
 const SignUp = (props) => {
@@ -76,7 +76,7 @@ const mapStateToProps = (state ) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        loginSuccess: (user) => dispatch(LoginSucess(user))
+        loginSuccess: (user) => dispatch(LoginSuccess(user))
     }
 }
 export default connect(mapStateToProps, mapDispatchToProps)(SignUp);
