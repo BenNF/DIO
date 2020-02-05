@@ -1,12 +1,14 @@
 import React from 'react';
+import { BrowserRouter as Router } from 'react-router-dom';
+import Navigation from "./routing/Navigation"
 import './App.css';
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <h1>CIS 454 Project with <bold>Ben, Rich and Rudy</bold> </h1>
-      </header>
+      <Router>
+        <Navigation></Navigation>
+      </Router>
     </div>
   );
 }
