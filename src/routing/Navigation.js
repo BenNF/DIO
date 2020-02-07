@@ -5,6 +5,7 @@ import Home from "../components/Home"
 import Login from "../components/Login"
 import SignUP from "../components/SignUp"
 import Profile from "../components/Profile"
+import Account from "../components/Account"
 
 const Navigation = (props) => {
     return (
@@ -12,7 +13,8 @@ const Navigation = (props) => {
             <Route exact path = {HOME} component ={Home}></Route>
             <Route exact path= {LOGIN} component = {Login}></Route>
             <Route exact path= {SIGNUP} component = {SignUP}></Route>
-            <Route exactpath= {ACCOUNT} component = {Profile}></Route>
+            <Route exact path= {ACCOUNT} component = {Account}></Route>
+            <Route path = {PROFILE} component = {Profile}></Route>
         </Switch>
     )
 }

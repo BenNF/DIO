@@ -13,6 +13,7 @@ const Login = (props) => {
     const firebase = useContext(FirebaseContext);
     const [error,
         setError] = useState(null)
+        
     return (
         <div className='login'>
             {props.login ? <Redirect to={HOME}/> : null}

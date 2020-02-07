@@ -5,3 +5,11 @@ export const LoginSuccess = (user) =>{
         payload: user
     }
 }
+
+export const SetProfile = (profile) => {
+    return {
+        type: "SET_PROFILE",
+        payload: profile
+    }
+}
+

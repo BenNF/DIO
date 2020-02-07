@@ -30,6 +30,9 @@ class Firebase {
         .auth
         .createUserWithEmailAndPassword(email, password);
 
+    doLoadUserProfile = (uid) => {
+        return (this.db.collection("users").doc(uid).get())
+    } 
     doSignInWithEmailAndPassword = (email , password) => {
         return (this.auth.signInWithEmailAndPassword(email, password));
     }

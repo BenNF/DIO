@@ -1,5 +1,11 @@
+const initState = {
+    user: null,
+    login: false,
+    profile: {}
+}
 
-const auth = (state= {user: null, login: false}, action) => {
+
+const auth = (state = initState, action) => {
     console.log("auth", action)
     switch(action.type){
         case "LOGIN_SUCCESS": return {
@@ -7,6 +13,11 @@ const auth = (state= {user: null, login: false}, action) => {
             user: action.payload,
             login: true
         }
+        case "SET_PROFILE": return {
+            ...state,
+            profile: action.payload
+        }
+    
         default: return state
     }
 }

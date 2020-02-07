@@ -1,4 +1,4 @@
-export const HOME = "/home"
+export const HOME = "/"
 export const ACCOUNT = "/account"
 export const PROFILE = "/profiles/:id"
 export const EVENT = "/events/:id"

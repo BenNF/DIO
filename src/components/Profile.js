@@ -1,22 +1,18 @@
-import React from 'react'
+import React, {useState} from 'react'
 import {LoginSuccess} from "../actions/authActions"
 import {connect} from "react-redux"
+//RUDY owns this one
+
 
 const Profile = (props) => {
+    const p = {
+        //some default profile
+    }
+    const [profile, setProfile] = useState(p);
+
     return (
-        <h1>Profile</h1>
+        <h1>This is the profile page</h1>
     )
 }
 
-const mapStateToProps = (state) => {
-    return {
-        profile: state.profile
-    }
-}
-
-const mapDispatchToProps = (dispatch) => {
-    return{
-        loginAction : (user) => dispatch(LoginSuccess(user))
-    }
-}
-export default connect(mapStateToProps, mapDispatchToProps)(Profile);
+export default Profile;
