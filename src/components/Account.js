@@ -1,6 +1,6 @@
-import React from 'react'
-import {SetProfile} from "../actions/authActions"
-import {connect} from "react-redux"
+import React from 'react';
+import {SetProfile} from "../actions/authActions";
+import {connect} from "react-redux";
 //Rich owns this one
 
 const Account = (props) => {
