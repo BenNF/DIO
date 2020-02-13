@@ -16,6 +16,8 @@ const config = {
 }
 
 
+const userCollection = "users"
+const eventColection =  "events"
 class Firebase {
 
     constructor() {
@@ -38,9 +40,11 @@ class Firebase {
     }
 
     doSetAuthListener = (callback) => {
-        this
-            .auth
-            .onAuthStateChanged(callback)
+        this.auth.onAuthStateChanged(callback)
+    }
+
+    doLoadUserProfile = (uid) => {
+        return this.db.collection(userCollection).doc(uid).get()
     }
 
     doSignOut = () => this

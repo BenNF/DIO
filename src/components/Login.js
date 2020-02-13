@@ -70,12 +70,17 @@ const handleLoginSubmit = (event, firebase, setError, loginSuccess) => {
         firebase
             .doSetPersistanceLocal()
             .then(() => {
-                firebase
-                    .doSignInWithEmailAndPassword(email, pass)
-                    .then((user) => {
-                        loginSuccess(user.user)
-                    })
-                    .catch((error) => setError("Error: " + error.message))
+                firebase.doSignInWithEmailAndPassword(email, pass).then((user) => {
+                        const uid = user.user.uid
+                        
+                        firebase.doLoadUserProfile(uid).then((doc) => {
+                            const profile = {
+                                ...doc.data(),
+                                uid: uid
+                            }
+                            loginSuccess(user.user, profile)
+                        })
+                    }).catch((error) => setError("Error: " + error.message))
             })
     }
 }
@@ -88,7 +93,7 @@ const mapStateToProps = (state ) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        loginSuccess: (user) => dispatch(LoginSuccess(user))
+        loginSuccess: (user, profile) => dispatch(LoginSuccess(user, profile))
     }
 }
 export default connect(mapStateToProps, mapDispatchToProps)(Login);

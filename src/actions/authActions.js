@@ -1,8 +1,11 @@
 
-export const LoginSuccess = (user) =>{
+export const LoginSuccess = (user, profile) =>{
     return {
         type: "LOGIN_SUCCESS",
-        payload: user
+        payload: {
+            user: user,
+            profile: profile
+        }
     }
 }
 

@@ -10,7 +10,8 @@ const auth = (state = initState, action) => {
     switch(action.type){
         case "LOGIN_SUCCESS": return {
             ...state,
-            user: action.payload,
+            user: action.payload.user,
+            profile: action.payload.profile,
             login: true
         }
         case "SET_PROFILE": return {

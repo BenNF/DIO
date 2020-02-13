@@ -7,9 +7,12 @@ import {EDIT_ACCOUNT} from "../routing/routes";
 
 const Account = (props) => {
     return (
-        <body>
+        <div>
             <h1>My Account</h1>
-            
+            <h1>{props?.profile?.name}</h1>         
+            <h1>{props?.profile?.bio}</h1>    
+            <h1>{props?.profile?.location}</h1>
+
             <div>
                 <Button href={EDIT_ACCOUNT}>Edit Account</Button>
             </div>
@@ -17,8 +20,7 @@ const Account = (props) => {
             <div>
                 <img src={ require('./stock.jpg') } />
             </div>
-
-        </body>
+        </div>
     )
 }
 const mapStateToProps = (state) => {

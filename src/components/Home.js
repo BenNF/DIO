@@ -1,7 +1,9 @@
 import React, {useContext, useState} from 'react'
 import Firebase, {FirebaseContext} from "../store/Firebase"
 import {connect} from "react-redux"
-import {Route, Redirect} from "react-router-dom"
+import {Link, Redirect} from "react-router-dom"
+import {ACCOUNT} from "../routing/routes"
+import {Button} from "semantic-ui-react"
 
 
 const Home =(props) => {
@@ -10,8 +12,12 @@ const Home =(props) => {
     return (
         <div className="home">
             {props.login ?
-                <h1>This is home</h1>
-            
+                <div>
+                    <h1>This is home</h1>
+                    <Link to={ACCOUNT}>
+                        <Button>Go to account page!</Button>
+                    </Link>
+                </div>
             :
             <Redirect to='/login'></Redirect>}
         </div>
