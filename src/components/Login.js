@@ -62,7 +62,14 @@ const handleLoginSubmit = (event, firebase, setError, loginSuccess) => {
                 firebase
                     .doSignInWithEmailAndPassword(email, pass)
                     .then((user) => {
-                        loginSuccess(user.user)
+                        const uid = user.user.uid   
+                        firebase.doLoadUserProfile(uid).then((doc) => {
+                            const profile = {
+                                ...doc.data(),
+                                uid: uid
+                            }
+                            loginSuccess(user.user, profile)
+                        })
                     })
                     .catch((error) => setError("Error: " + error.message))
             })
@@ -71,8 +78,7 @@ const handleLoginSubmit = (event, firebase, setError, loginSuccess) => {
             .doSetPersistanceLocal()
             .then(() => {
                 firebase.doSignInWithEmailAndPassword(email, pass).then((user) => {
-                        const uid = user.user.uid
-                        
+                        const uid = user.user.uid   
                         firebase.doLoadUserProfile(uid).then((doc) => {
                             const profile = {
                                 ...doc.data(),

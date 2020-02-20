@@ -16,3 +16,9 @@ export const SetProfile = (profile) => {
     }
 }
 
+export const LogOut = () =>{
+    return {
+        type: 'LOG_OUT'
+    }
+}
+
