@@ -32,9 +32,6 @@ class Firebase {
         .auth
         .createUserWithEmailAndPassword(email, password);
 
-    doLoadUserProfile = (uid) => {
-        return (this.db.collection("users").doc(uid).get())
-    } 
     doSignInWithEmailAndPassword = (email , password) => {
         return (this.auth.signInWithEmailAndPassword(email, password));
     }
@@ -45,6 +42,18 @@ class Firebase {
 
     doLoadUserProfile = (uid) => {
         return this.db.collection(userCollection).doc(uid).get()
+    }
+
+    doSetUserProfile = (uid, profile) => {
+        return this.db.collection(userCollection).doc(uid).update(profile)
+    }
+
+    doUploadImage = (img, path) => {
+        return this
+            .storage
+            .ref()
+            .child(path)
+            .putString(img, 'data_url')
     }
 
     doSignOut = () => this

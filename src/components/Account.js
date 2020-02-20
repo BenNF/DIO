@@ -1,6 +1,7 @@
 import React from 'react';
 import {SetProfile} from "../actions/authActions";
 import {connect} from "react-redux";
+import {Link} from "react-router-dom"
 import {Form, Checkbox, Button, Message} from "semantic-ui-react";
 import {EDIT_ACCOUNT} from "../routing/routes";
 //Rich owns this one
@@ -14,7 +15,9 @@ const Account = (props) => {
             <h1>{props?.profile?.location}</h1>
 
             <div>
-                <Button href={EDIT_ACCOUNT}>Edit Account</Button>
+                <Link to={EDIT_ACCOUNT}>
+                    <Button>Edit Account</Button>
+                </Link>
             </div>
 
             <div>
