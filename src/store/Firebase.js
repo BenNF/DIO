@@ -56,6 +56,15 @@ class Firebase {
             .putString(img, 'data_url')
     }
 
+<<<<<<< HEAD
+=======
+    doSetAuthListener = (callback ) => {
+        this
+            .auth
+            .onAuthStateChanged(callback)
+    }
+
+>>>>>>> ee43c48df194959afbbbef9875486f792b3b01cf
     doSignOut = () => this
         .auth
         .signOut();

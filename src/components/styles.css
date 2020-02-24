@@ -22,3 +22,12 @@
     width: 50%;
     height: 50%;
 }
+
+.centerBox {
+    width: 50%;
+    height: 100%;
+}
+.center{
+    display: flex;
+    justify-content: center;
+}

@@ -1,9 +1,15 @@
-import React from 'react';
+import React, {useEffect, useContext} from 'react';
 import { BrowserRouter as Router } from 'react-router-dom';
 import Navigation from "./routing/Navigation";
 import './App.css';
+import {LoginSuccess } from "./actions/authActions"
+import {FirebaseContext} from "./store/Firebase"
+import {connect} from "react-redux"
 
-function App() {
+const App = (props) => {
+  const firebase = useContext(FirebaseContext);
+  firebase.doSetAuthListener((user) => authCallback(user, firebase, props.loginSuccess));
+
   return (
     <div className="App">
       <Router>
@@ -13,4 +19,25 @@ function App() {
   );
 }
 
-export default App;
+const authCallback = (user, firebase, loginSuccess) => {
+  const uid = user.uid   
+  firebase.doLoadUserProfile(uid).then((doc) => {
+      const profile = {
+          ...doc.data(),
+          uid: uid
+      }
+      loginSuccess(user, profile)
+  })
+}
+
+const mapStateToProps = (state) => {
+  return {
+
+  }
+}
+const mapDispatchToProps = (dispatch) => {
+  return {
+    loginSuccess: (user, profile) => dispatch(LoginSuccess(user, profile))
+  }
+}
+export default connect(mapStateToProps, mapDispatchToProps)(App);

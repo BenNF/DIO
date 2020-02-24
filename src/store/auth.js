@@ -18,6 +18,7 @@ const auth = (state = initState, action) => {
             ...state,
             profile: action.payload
         }
+        case "LOG_OUT": return initState
     
         default: return state
     }

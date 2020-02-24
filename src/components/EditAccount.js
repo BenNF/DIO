@@ -1,10 +1,14 @@
 import {SetProfile} from "../actions/authActions";
 import React, {useContext, useState} from "react"
 <<<<<<< HEAD
+<<<<<<< HEAD
 import {Form, Checkbox, Button, Message} from "semantic-ui-react"
 =======
 import {Form, Image, Button, Message, Input, TextArea} from "semantic-ui-react"
 >>>>>>> 56728fef4af5d42d095e46f081a46cc590c8797a
+=======
+import {Form, Image, Button, Message, Input, TextArea} from "semantic-ui-react"
+>>>>>>> ee43c48df194959afbbbef9875486f792b3b01cf
 import {connect} from "react-redux"
 import {FirebaseContext} from "../store/Firebase"
 import {Redirect} from "react-router-dom"
@@ -17,6 +21,7 @@ const Account = (props) => {
 
     const firebase = useContext(FirebaseContext);
     return (
+<<<<<<< HEAD
 <<<<<<< HEAD
         
         <body>
@@ -85,6 +90,46 @@ const Account = (props) => {
             </div>
         </div>
 >>>>>>> 56728fef4af5d42d095e46f081a46cc590c8797a
+=======
+        <div>
+            {props.login ? null : <Redirect to={LOGIN}/>}
+            {didUpdate ? <h1>YAAAAY you updated your profile</h1> : null}
+            <div className='editForm'>
+                <div className='editFormbox'>
+                    <h1>New Edits</h1>
+                    <Form onSubmit={(event) => handleSubmit(event, firebase, photo, props.profile.uid, setUpdate)}>
+                        <Form.Field>
+                            <label>Bio</label>
+                            <TextArea placeholder={props.profile.bio}/>
+                        </Form.Field>
+                        <Form.Field>
+                            <label>Name</label>
+                            <input placeholder='Name...' value={props.profile.name}/>
+                        </Form.Field>
+                        <Form.Field>
+                            <label>Location</label>
+                            <input placeholder='City...' value={props.profile.location}/>
+                        </Form.Field>
+                        <Form.Field>
+                            <Image src={photo} size='small'></Image>
+                            <Input>
+                                <input type='file' accept="image/png, image/jpeg" onChange={(event) => {
+                                let fr = new FileReader()
+                                if(event?.target?.files?.[0]){
+                                    fr.readAsDataURL(event.target.files[0])
+                                }
+                                fr.onload = () => {
+                                    setPhoto(fr.result);
+                                }
+                            }}></input>
+                            </Input>
+                        </Form.Field>
+                        <Button type='submit'>Submit</Button>
+                    </Form>
+                </div>
+            </div>
+        </div>
+>>>>>>> ee43c48df194959afbbbef9875486f792b3b01cf
     )
 }
 
