@@ -1,6 +1,6 @@
 import React, {useContext, useState} from "react"
 import Firebase, {FirebaseContext} from "../store/Firebase"
-import {Form, Checkbox, Button, Message} from "semantic-ui-react"
+import {Form, Checkbox, Button, Message, TextArea} from "semantic-ui-react"
 import {Redirect} from "react-router-dom"
 import {connect} from "react-redux"
 import {HOME, SIGNUP} from "../routing/routes"
@@ -39,6 +39,10 @@ const SignUp = (props) => {
                             <label>Location</label>
                             <input required placeholder='City...'/>
                         </Form.Field>
+                        <Form.Field>
+                            <label>Bio</label>
+                            <TextArea required placeholder='BIO'/>
+                        </Form.Field>
                         <Button type='submit'>Submit</Button>
                     </Form>
                     {error
@@ -58,14 +62,22 @@ const handleLoginSubmit = (event, firebase, setError, loginSuccess) => {
     const pass = (event.target[1].value);
     const name = (event.target[2].value);
     const location = (event.target[3].value);
+    const bio = (event.target[4].value);
+    const profile = {
+        bio,
+        name,
+        location,
+        email,
+        profilePic: null
+    }
     
     firebase.doCreateUserWithEmailAndPassword(email, pass).then( (user) => {
-        loginSuccess(user.user);
-        //do create profile in DB here
+        firebase.doSetUserProfile(user.user.uid, profile).then(()=> {
+            loginSuccess(user.user);
+        }).catch(error => console.log(error))
     }).catch(error => {
         setError("Error " + error.message)
-    })
-    
+    })   
 }
 
 const mapStateToProps = (state ) => {
