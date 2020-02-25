@@ -31,3 +31,26 @@
     display: flex;
     justify-content: center;
 }
+
+.Menu {
+    display: flex;
+    flex-direction: row;
+    background-color: #bed4f7;
+    box-shadow: 0px 0px 3px 3px #bed4f7;
+    border: 1px solid black;
+    justify-content: space-evenly;
+    width: 80%;
+}
+.Home {
+    display: flex;
+    flex-direction: column;
+    width: 100vw;
+    align-items: center;
+    height: 100vh;
+}
+.eventImage {
+    max-height: 300px;
+    border: 1px solid black;
+    box-shadow: 0px 0px 2px gray;
+    margin: 10px;
+}
