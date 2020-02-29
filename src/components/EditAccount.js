@@ -68,7 +68,7 @@ const handleSubmit = (event, firebase, photo, uid, setUpdate) => {
                 location,
                 profilePic: url
             }
-            firebase.doSetUserProfile(uid, profile).then(()=> {
+            firebase.doUpdateUserProfile(uid, profile).then(()=> {
                 console.log("SUCCESS") //do something for user feedback here
                 setUpdate(true)
             }).catch(error =>console.log(error))
