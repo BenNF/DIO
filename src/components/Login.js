@@ -1,7 +1,7 @@
 import React, {useContext, useState} from "react"
 import  {FirebaseContext} from "../store/Firebase"
 import {Form, Checkbox, Button, Message} from "semantic-ui-react"
-import {Redirect} from "react-router-dom"
+import {Redirect, Link} from "react-router-dom"
 import {connect} from "react-redux"
 import {HOME, SIGNUP} from "../routing/routes"
 import "./styles.css"
@@ -43,7 +43,9 @@ const Login = (props) => {
                 </div>
                 <h3>Don't have an account?</h3>
                 <br></br>
-                <Button href={SIGNUP}>Create Account!</Button>
+                <Link to={SIGNUP}>
+                    <Button>Create Account!</Button>
+                </Link>
             </div>
         </div>
     )

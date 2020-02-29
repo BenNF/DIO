@@ -1,6 +1,6 @@
 import React, {useContext, useState} from "react"
 import Firebase, {FirebaseContext} from "../store/Firebase"
-import {Form, Checkbox, Button, Message, TextArea} from "semantic-ui-react"
+import {Form, Checkbox, Button, Message, TextArea, Image} from "semantic-ui-react"
 import {Redirect} from "react-router-dom"
 import {connect} from "react-redux"
 import {HOME, SIGNUP} from "../routing/routes"
@@ -9,7 +9,7 @@ import "./styles.css"
 
 const SignUp = (props) => {
     const firebase = useContext(FirebaseContext);
-    console.log(props)
+    const [photo,setPhoto] = useState(null);
     const [error,
         setError] = useState(null)
     return (
@@ -21,7 +21,7 @@ const SignUp = (props) => {
                     <Form
                         onSubmit={(event) => {
                             setError(null);
-                            handleLoginSubmit(event, firebase, setError, props.loginSuccess)
+                            handleLoginSubmit(event, firebase, props.loginSuccess, photo)
                         }}>
                         <Form.Field>
                             <label>Email</label>
@@ -43,6 +43,21 @@ const SignUp = (props) => {
                             <label>Bio</label>
                             <TextArea required placeholder='BIO'/>
                         </Form.Field>
+                        <Form.Input label='Event Image'>
+                            <input
+                                type='file'
+                                accept="image/png, image/jpeg"
+                                onChange={(event) => {
+                                let fr = new FileReader()
+                                if (event?.target?.files?.[0]) {
+                                    fr.readAsDataURL(event.target.files[0])
+                                }
+                                fr.onload = () => {
+                                    setPhoto(fr.result);
+                                }
+                            }}></input>
+                        </Form.Input>
+                        <Image src={photo} className='eventImage'></Image>
                         <Button type='submit'>Submit</Button>
                     </Form>
                     {error
@@ -56,28 +71,31 @@ const SignUp = (props) => {
     )
 }
 
-const handleLoginSubmit = (event, firebase, setError, loginSuccess) => {
+const handleLoginSubmit = async (event, firebase, loginSuccess, photo) => {
     event.preventDefault();
     const email = (event.target[0].value);
     const pass = (event.target[1].value);
     const name = (event.target[2].value);
     const location = (event.target[3].value);
     const bio = (event.target[4].value);
+   
+    let profilePic = null;
+    const user = await firebase.doCreateUserWithEmailAndPassword(email, pass)
+    console.log(user)
+    console.log(user.user)
+    if(photo){
+        profilePic = await firebase.doUploadImage(photo, user.user.uid);
+        profilePic = await profilePic.ref.getDownloadURL();
+    }
     const profile = {
         bio,
         name,
         location,
         email,
-        profilePic: null
+        profilePic,
     }
-    
-    firebase.doCreateUserWithEmailAndPassword(email, pass).then( (user) => {
-        firebase.doSetUserProfile(user.user.uid, profile).then(()=> {
-            loginSuccess(user.user);
-        }).catch(error => console.log(error))
-    }).catch(error => {
-        setError("Error " + error.message)
-    })   
+    await firebase.doSetUserProfile(user.user.uid, profile)
+    loginSuccess(user.user);
 }
 
 const mapStateToProps = (state ) => {

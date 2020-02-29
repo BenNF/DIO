@@ -27,10 +27,9 @@ const CreateEvent = (props) => {
     const firebase = useContext(FirebaseContext);
     return (
         <Modal
-            closeIcon={<Icon name='close' 
-            onClick = {
-                () => setOpen(false)
-            }></Icon>}
+            closeIcon={< Icon name = 'close' onClick = {
+            () => setOpen(false)
+        } > </Icon>}
             open={open}
             trigger={< Button onClick = {
             () => setOpen(true)
@@ -47,7 +46,11 @@ const CreateEvent = (props) => {
                 <Form
                     onSubmit={(event) => {
                     setLoading(true);
-                    handleSubmit(event, firebase, photo, date, setLoading).then(() => setOpen(false)).catch(error => setError(error.message))
+                    handleSubmit(event, firebase, photo, date, props.profile).then(() => {
+                        setPhoto(null);
+                        setOpen(false);
+                        setLoading(false);
+                    }).catch(error => setError(error.message))
                 }}>
                     <Form.Group widths='equal'>
                         <Form.Input required fluid label='Event Name' placeholder='Name'/>
@@ -83,7 +86,7 @@ const CreateEvent = (props) => {
         </Modal>
     )
 }
-const handleSubmit = async(event, fb, photoString, date, setLoading) => {
+const handleSubmit = async(event, fb, photoString, date, profile) => {
     event.preventDefault();
     event.persist();
     let photo = '';
@@ -98,16 +101,18 @@ const handleSubmit = async(event, fb, photoString, date, setLoading) => {
         date: date,
         time: event.target[2].value,
         description: event.target[3].value,
-        photo: photo
+        photo: photo,
+        hostName: profile.name,
+        hostID: profile.uid,
     }
     const id = await fb.doPushEvent(eventData)
-    console.log(id);
-
-    setLoading(false);
 }
 
 const mapStateToProps = (state) => {
-    return {login: state.auth.login}
+    return {
+        login: state.auth.login,
+        profile: state.auth.profile,
+    }
 }
 const mapDispatchToProps = (dispatch) => {
     return {}
