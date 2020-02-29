@@ -1,10 +1,6 @@
 import {SetProfile} from "../actions/authActions";
 import React, {useContext, useState} from "react"
-<<<<<<< HEAD
-import {Form, Checkbox, Button, Message} from "semantic-ui-react"
-=======
 import {Form, Image, Button, Message, Input, TextArea} from "semantic-ui-react"
->>>>>>> 56728fef4af5d42d095e46f081a46cc590c8797a
 import {connect} from "react-redux"
 import {FirebaseContext} from "../store/Firebase"
 import {Redirect} from "react-router-dom"
@@ -17,35 +13,6 @@ const Account = (props) => {
 
     const firebase = useContext(FirebaseContext);
     return (
-<<<<<<< HEAD
-        
-        <body>
-            <div className = 'editForm'>
-                    <div className = 'editFormbox'>
-                        <h1>New Edits</h1>
-                        <Form>
-                            <Form.Field>
-                                <label>Email</label>
-                                <input placeholder='Email'/>
-                            </Form.Field>
-                            <Form.Field>
-                                <label>Password</label>
-                                <input type='password' placeholder='Password'/>
-                            </Form.Field>
-                            <Form.Field>
-                                <label>Name</label>
-                                <input placeholder='Name...'/>
-                            </Form.Field>
-                            <Form.Field>
-                                <label>Location</label>
-                                <input placeholder='City...'/>
-                            </Form.Field>
-                            <Button type='submit'>Submit</Button>
-                        </Form>
-                    </div>
-            </div>
-        </body>
-=======
         <div>
             {props.login ? null : <Redirect to={LOGIN}/>}
             {didUpdate ? <h1>YAAAAY you updated your profile</h1> : null}
@@ -84,7 +51,6 @@ const Account = (props) => {
                 </div>
             </div>
         </div>
->>>>>>> 56728fef4af5d42d095e46f081a46cc590c8797a
     )
 }
 

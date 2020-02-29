@@ -47,6 +47,9 @@ class Firebase {
     doSetUserProfile = (uid, profile) => {
         return this.db.collection(userCollection).doc(uid).update(profile)
     }
+    doPushEvent = (event) => {
+        return this.db.collection(eventColection).add(event)
+    }
 
     doUploadImage = (img, path) => {
         return this
@@ -54,6 +57,12 @@ class Firebase {
             .ref()
             .child(path)
             .putString(img, 'data_url')
+    }
+
+    doSetAuthListener = (callback ) => {
+        this
+            .auth
+            .onAuthStateChanged(callback)
     }
 
     doSignOut = () => this
