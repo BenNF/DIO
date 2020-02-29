@@ -26,6 +26,7 @@ const authCallback = (user, firebase, loginSuccess) => {
           ...doc.data(),
           uid: uid
       }
+      console.log("profile", profile)
       loginSuccess(user, profile)
   })
 }

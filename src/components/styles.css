@@ -5,14 +5,17 @@
 .login{
     display: flex;
     justify-content: center;
+    width: 60vw;
 }
 .signUpBox {
     width: 50%;
     height: 50%;
+
 }
 .signUp{
     display: flex;
     justify-content: center;
+    width: 60vw;
 }
 .editForm {
     display: flex;
@@ -57,6 +60,41 @@
 
 .profile{
     display: flex;
+    flex-direction: row;
+    align-self: center;
+    width: 80vw;
+    height: 90vh;
+    margin: 10px;
+    background-color: #bed4f7;
+    box-shadow: 0px 0px 2px gray;
+    border: 1px solid black;
+} 
+
+.profileLeft {
+    display: flex;
+    flex: 1;
     flex-direction: column;
     align-items: center;
+}
+
+.profileRight {
+    display: flex;
+    flex: 2;
+    flex-direction: column;
+    align-items: center;
+
+}
+.profileImage {
+    max-width: 300px;
+}
+.profileBio {
+    width: 100%;
+    height: 100%;
+}
+
+.editProfile{
+    width: 80vw;
+    height: 80vh;
+    display: flex;
+    justify-content: center;
 }
