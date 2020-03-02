@@ -2,8 +2,11 @@ import React from 'react';
 import {SetProfile} from "../actions/authActions";
 import {connect} from "react-redux";
 import {Link} from "react-router-dom"
-import {Form, Checkbox, Button, Message} from "semantic-ui-react";
+import {Form,Button, Message} from "semantic-ui-react";
 import {EDIT_ACCOUNT} from "../routing/routes";
+import ReactCrop from 'react-image-crop';
+import 'react-image-crop/dist/ReactCrop.css';
+
 //Rich owns this one
 
 const Account = (props) => {
