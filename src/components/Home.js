@@ -2,16 +2,17 @@ import React, {useContext, useState} from 'react'
 import Firebase, {FirebaseContext} from "../store/Firebase"
 import {connect} from "react-redux"
 import {Link, Redirect} from "react-router-dom"
-import {ACCOUNT, LOGIN} from "../routing/routes"
+import {PROFILE, LOGIN} from "../routing/routes"
 import {LogOut} from "../actions/authActions"
-import {Button} from "semantic-ui-react"
+import {Button, TextArea} from "semantic-ui-react"
 import Login from './Login'
 import CreateEvent from "./CreateEvent"
 
 const Home = (props) => {
+    //TODO map state into MENU instead of Home
     return (
         <div className="Home">
-            <Menu login={props.login} logOut={props.logOut}></Menu>
+            <Menu login={props.login} logOut={props.logOut} profile={props.profile}></Menu>
             <h2>This is the home page!</h2>
             <h3>Some other text</h3>
             <h4>Some third text</h4>
@@ -24,7 +25,7 @@ const Menu = (props) => {
     return (
         <div className='Menu'>
             {props.login
-                ? <Link to={ACCOUNT}>
+                ? <Link to={`/profiles/${props.profile.uid}`}>
                         <Button>Account</Button>
                     </Link>
                 : null}
@@ -44,13 +45,15 @@ const Menu = (props) => {
             {props.login
                 ? <CreateEvent></CreateEvent>
                 : null}
-
         </div>
     )
 }
 
 const mapStateToProps = (state) => {
-    return {login: state.auth.login}
+    return {
+        login: state.auth.login,
+        profile: state.auth.profile
+    }
 }
 
 const mapDispatchToProps = (dispatch) => {

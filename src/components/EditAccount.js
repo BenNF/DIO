@@ -10,45 +10,43 @@ import "./styles.css"
 const Account = (props) => {
     const [photo, setPhoto] = useState(props.profile.profilePic)
     const [didUpdate, setUpdate] = useState(false);
-
+    const [bio, setBio] = useState(props.profile.bio)
     const firebase = useContext(FirebaseContext);
     return (
-        <div>
+        <div className='editProfile'>
             {props.login ? null : <Redirect to={LOGIN}/>}
             {didUpdate ? <h1>YAAAAY you updated your profile</h1> : null}
-            <div className='editForm'>
-                <div className='editFormbox'>
-                    <h1>New Edits</h1>
-                    <Form onSubmit={(event) => handleSubmit(event, firebase, photo, props.profile.uid, setUpdate)}>
-                        <Form.Field>
-                            <label>Bio</label>
-                            <TextArea placeholder={props.profile.bio}/>
-                        </Form.Field>
-                        <Form.Field>
-                            <label>Name</label>
-                            <input placeholder='Name...' value={props.profile.name}/>
-                        </Form.Field>
-                        <Form.Field>
-                            <label>Location</label>
-                            <input placeholder='City...' value={props.profile.location}/>
-                        </Form.Field>
-                        <Form.Field>
-                            <Image src={photo} size='small'></Image>
-                            <Input>
-                                <input type='file' accept="image/png, image/jpeg" onChange={(event) => {
-                                let fr = new FileReader()
-                                if(event?.target?.files?.[0]){
-                                    fr.readAsDataURL(event.target.files[0])
-                                }
-                                fr.onload = () => {
-                                    setPhoto(fr.result);
-                                }
-                            }}></input>
-                            </Input>
-                        </Form.Field>
-                        <Button type='submit'>Submit</Button>
-                    </Form>
-                </div>
+            <div className='editFormbox'>
+                <h1>New Edits</h1>
+                <Form onSubmit={(event) => handleSubmit(event, firebase, photo, props.profile.uid, setUpdate)}>
+                    <Form.Field>
+                        <label>Bio</label>
+                        <TextArea value ={bio} onChange = {(event, value) => setBio(event.target.value)}/>
+                    </Form.Field>
+                    <Form.Field>
+                        <label>Name</label>
+                        <input placeholder='Name...' value={props.profile.name}/>
+                    </Form.Field>
+                    <Form.Field>
+                        <label>Location</label>
+                        <input placeholder='City...' value={props.profile.location}/>
+                    </Form.Field>
+                    <Form.Field>
+                        <Image src={photo} size='small'></Image>
+                        <Input>
+                            <input type='file' accept="image/png, image/jpeg" onChange={(event) => {
+                            let fr = new FileReader()
+                            if(event?.target?.files?.[0]){
+                                fr.readAsDataURL(event.target.files[0])
+                            }
+                            fr.onload = () => {
+                                setPhoto(fr.result);
+                            }
+                        }}></input>
+                        </Input>
+                    </Form.Field>
+                    <Button type='submit'>Submit</Button>
+                </Form>
             </div>
         </div>
     )
