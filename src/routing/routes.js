@@ -1,5 +1,4 @@
 export const HOME = "/"
-export const ACCOUNT = "/account"
 export const EDIT_ACCOUNT = "/edit_account"
 export const PROFILE = "/profiles/:id"
 export const EVENT = "/events/:id"
