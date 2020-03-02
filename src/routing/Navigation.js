@@ -1,6 +1,6 @@
 import React from "react"
 import { Route, Switch } from "react-router-dom"
-import {HOME, ACCOUNT, EVENT, PROFILE, LOGIN, SIGNUP,EDIT_ACCOUNT} from "./routes"
+import {HOME, EVENT, PROFILE, LOGIN, SIGNUP,EDIT_ACCOUNT} from "./routes"
 import Home from "../components/Home"
 import Login from "../components/Login"
 import SignUP from "../components/SignUp"
