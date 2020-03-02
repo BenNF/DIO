@@ -10,7 +10,7 @@ import { EDIT_ACCOUNT } from '../routing/routes'
 const Profile = (props) => {
     const firebase = useContext(FirebaseContext);
     const [profile,
-        setProfile] = useState({});
+        setProfile] = useState(props.profile);
     const [edit, setEdit] = useState(false);
     const userID = props.match
         ?.params.id

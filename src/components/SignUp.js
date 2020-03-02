@@ -81,8 +81,6 @@ const handleLoginSubmit = async (event, firebase, loginSuccess, photo) => {
    
     let profilePic = null;
     const user = await firebase.doCreateUserWithEmailAndPassword(email, pass)
-    console.log(user)
-    console.log(user.user)
     if(photo){
         profilePic = await firebase.doUploadImage(photo, user.user.uid);
         profilePic = await profilePic.ref.getDownloadURL();
@@ -93,9 +91,11 @@ const handleLoginSubmit = async (event, firebase, loginSuccess, photo) => {
         location,
         email,
         profilePic,
+        uid: user.user.uid,
     }
     await firebase.doSetUserProfile(user.user.uid, profile)
-    loginSuccess(user.user);
+    console.log('sign up ')
+    loginSuccess(user.user, profile);
 }
 
 const mapStateToProps = (state ) => {
@@ -106,7 +106,7 @@ const mapStateToProps = (state ) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        loginSuccess: (user) => dispatch(LoginSuccess(user))
+        loginSuccess: (user, profile) => dispatch(LoginSuccess(user,profile))
     }
 }
 export default connect(mapStateToProps, mapDispatchToProps)(SignUp);

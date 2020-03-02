@@ -5,11 +5,11 @@ import {Link, Redirect} from "react-router-dom"
 import {PROFILE, LOGIN} from "../routing/routes"
 import {LogOut} from "../actions/authActions"
 import {Button, TextArea} from "semantic-ui-react"
-import Login from './Login'
 import CreateEvent from "./CreateEvent"
 
 const Home = (props) => {
     //TODO map state into MENU instead of Home
+    console.log(props)
     return (
         <div className="Home">
             <Menu login={props.login} logOut={props.logOut} profile={props.profile}></Menu>

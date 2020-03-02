@@ -20,13 +20,13 @@ const App = (props) => {
 }
 
 const authCallback = (user, firebase, loginSuccess) => {
-  const uid = user.uid   
+  const uid = user.uid
+  console.log("callback")   
   firebase.doLoadUserProfile(uid).then((doc) => {
       const profile = {
           ...doc.data(),
           uid: uid
       }
-      console.log("profile", profile)
       loginSuccess(user, profile)
   })
 }
