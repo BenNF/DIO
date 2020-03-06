@@ -4,7 +4,7 @@ import {Card, Button, Image, Icon, TextArea, Form} from "semantic-ui-react"
 import {FirebaseContext} from "../store/Firebase"
 import {connect} from "react-redux"
 import {Link }from "react-router-dom"
-import { EDIT_ACCOUNT } from '../routing/routes'
+import { EDIT_ACCOUNT,HOME } from '../routing/routes'
 //RUDY owns this one
 
 const Profile = (props) => {
@@ -37,9 +37,12 @@ const Profile = (props) => {
     }, [])
 
     return (
+        // When you refresh your profile page, the options to edit the account disappear 
         <React.Fragment>
             <h1>Profile: </h1>
+            <Link to={HOME}><Button>Home</Button> </Link> 
             {edit ? <Link to={EDIT_ACCOUNT}><Button>Edit Account</Button></Link>: null}
+            {/* {edit ? : null} */}
             <div className='profile'>
                 <div className='profileLeft'> 
                     <Image className='profileImage' src={profile.profilePic}></Image>

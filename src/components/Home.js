@@ -28,7 +28,8 @@ const Menu = (props) => {
                 ? <Link to={`/profiles/${props.profile.uid}`}>
                         <Button>Account</Button>
                     </Link>
-                : null}
+                    // what does :null do? --Rich
+                : null} 
 
             {props.login
                 ? null

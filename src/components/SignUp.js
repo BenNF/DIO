@@ -7,6 +7,10 @@ import {HOME, SIGNUP} from "../routing/routes"
 import {LoginSuccess} from "../actions/authActions"
 import "./styles.css"
 
+
+// TODO fix bug firebase errors ignroed
+// This includes when password size less than 6
+// 
 const SignUp = (props) => {
     const firebase = useContext(FirebaseContext);
     const [photo,setPhoto] = useState(null);
