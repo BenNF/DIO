@@ -12,7 +12,7 @@ const Home = (props) => {
     console.log(props)
     return (
         <div className="Home">
-            <Menu login={props.login} logOut={props.logOut} profile={props.profile}></Menu>
+            <Menu login={props.login} logOut={props.logOut} profile={props.profile} title='DIO -- do it yourself'></Menu>
             <h2>This is the home page!</h2>
             <h3>Some other text</h3>
             <h4>Some third text</h4>
@@ -24,6 +24,10 @@ const Menu = (props) => {
     const firebase = useContext(FirebaseContext);
     return (
         <div className='Menu'>
+            <div className='menuHeader'>
+                <h2>{props.title}</h2>
+            </div>
+            <div className='menuButtons'>
             {props.login
                 ? <Link to={`/profiles/${props.profile.uid}`}>
                         <Button>Account</Button>
@@ -46,6 +50,7 @@ const Menu = (props) => {
             {props.login
                 ? <CreateEvent></CreateEvent>
                 : null}
+            </div>
         </div>
     )
 }
