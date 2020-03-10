@@ -15,6 +15,7 @@ const Navigation = (props) => {
             <Route exact path= {SIGNUP} component = {SignUP}></Route>
             <Route exact path= {EDIT_ACCOUNT} component = {EditAccount}></Route>
             <Route path = {PROFILE} component = {Profile}></Route>
+            <Route path = {PROFILE} component = {Profile}></Route>
         </Switch>
     )
 }

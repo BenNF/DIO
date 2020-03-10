@@ -5,204 +5,88 @@ import {connect} from "react-redux"
 import {FirebaseContext} from "../store/Firebase"
 import {Redirect} from "react-router-dom"
 import {LOGIN,PROFILE} from "../routing/routes"
-// import PureComponent
 import ReactDOM from "react-dom";
 import ReactCrop from "react-image-crop";
-
+import 'react-image-crop/dist/ReactCrop.css';
 import "./styles.css"
-
-//class App extends PureComponent {
-//     state = {
-//       src: null,
-//       crop: {
-//         unit: "%",
-//         width: 30,
-//         aspect: 1 / 1
-//       }
-//     };
-  
-//     onSelectFile = e => {
-//       if (e.target.files && e.target.files.length > 0) {
-//         const reader = new FileReader();
-//         reader.addEventListener("load", () =>
-//           this.setState({ src: reader.result })
-//         );
-//         reader.readAsDataURL(e.target.files[0]);
-//       }
-//     };
-  
-//     // If you setState the crop in here you should return false.
-//     onImageLoaded = image => {
-//       this.imageRef = image;
-//     };
-  
-//     onCropComplete = crop => {
-//       this.makeClientCrop(crop);
-//     };
-  
-//     onCropChange = (crop, percentCrop) => {
-//       // You could also use percentCrop:
-//       // this.setState({ crop: percentCrop });
-//       this.setState({ crop });
-//     };
-  
-//     async makeClientCrop(crop) {
-//       if (this.imageRef && crop.width && crop.height) {
-//         const croppedImageUrl = await this.getCroppedImg(
-//           this.imageRef,
-//           crop,
-//           "newFile.jpeg"
-//         );
-//         this.setState({ croppedImageUrl });
-//       }
-//     }
-  
-//     getCroppedImg(image, crop, fileName) {
-//       const canvas = document.createElement("canvas");
-//       const scaleX = image.naturalWidth / image.width;
-//       const scaleY = image.naturalHeight / image.height;
-//       canvas.width = crop.width;
-//       canvas.height = crop.height;
-//       const ctx = canvas.getContext("2d");
-  
-//       ctx.drawImage(
-//         image,
-//         crop.x * scaleX,
-//         crop.y * scaleY,
-//         crop.width * scaleX,
-//         crop.height * scaleY,
-//         0,
-//         0,
-//         crop.width,
-//         crop.height
-//       );
-  
-//       return new Promise((resolve, reject) => {
-//         canvas.toBlob(blob => {
-//           if (!blob) {
-//             //reject(new Error('Canvas is empty'));
-//             console.error("Canvas is empty");
-//             return;
-//           }
-//           blob.name = fileName;
-//           window.URL.revokeObjectURL(this.fileUrl);
-//           this.fileUrl = window.URL.createObjectURL(blob);
-//           resolve(this.fileUrl);
-//         }, "image/jpeg");
-//       });
-//     }
-  
-//     render() {
-//       const { crop, croppedImageUrl, src } = this.state;
-  
-//       return (
-//         <div className="App">
-//           <div>
-//             <input type="file" accept="image/*" onChange={this.onSelectFile} />
-//           </div>
-//           {src && (
-//             <ReactCrop
-//               src={src}
-//               crop={crop}
-//               ruleOfThirds
-//               onImageLoaded={this.onImageLoaded}
-//               onComplete={this.onCropComplete}
-//               onChange={this.onCropChange}
-//             />
-//           )}
-//           {croppedImageUrl && (
-//             <img alt="Crop" style={{ maxWidth: "100%" }} src={croppedImageUrl} />
-//           )}
-//         </div>
-//       );
-//     }
-//   }
-
-// ReactDOM.render(<App />, document.getElementById("root"));
+import ImageCrop from "./ImageCrop"
 
 
 
 const Account = (props) => {
-    const [photo, setPhoto] = useState(props.profile.profilePic)
+    const [photo, setPhoto] = useState(props.profile.profilePic);
     const [didUpdate, setUpdate] = useState(false);
-    const [bio, setBio] = useState(props.profile.bio)
+    const [bio, setBio] = useState(props.profile.bio);
     const firebase = useContext(FirebaseContext);
 
-    const crop_state = {
-        src: null,
-        crop: {
-          unit: "%",
-          width: 30,
-          aspect: 1 / 1
-        }
-      };
+    const [crop,cropSetter] = useState({
+        aspect: 1/1
+    });
 
-      const onImageLoaded = image => {
-        this.imageRef = image;
-      };
-    
-      const onCropComplete = crop => {
-        this.makeClientCrop(crop);
-      };
-    
-      const onCropChange = (crop, percentCrop) => {
-        // You could also use percentCrop:
-        // this.setState({ crop: percentCrop });
-        this.setState({ crop });
-      };
 
-    return (
+
+    return(
         <div className='editProfile'>
-            {props.login ? null : <Redirect to={LOGIN}/>}
-            {didUpdate ? <Redirect to={PROFILE}/> : null}
-            <div className='editFormbox'>
-                <h1>New Edits</h1>
-                <Form onSubmit={(event) => handleSubmit(event, firebase, photo, props.profile.uid, setUpdate)}>
-                    <Form.Field>
-                        <label>Bio</label>
-                        <TextArea value ={bio} onChange = {(event, value) => setBio(event.target.value)}/>
-                    </Form.Field>
-                    <Form.Field>
-                        <label>Name</label>
-                        <input placeholder='Name...' value={props.profile.name}/>
-                    </Form.Field>
-                    <Form.Field>
-                        <label>Location</label>
-                        <input placeholder='City...' value={props.profile.location}/>
-                    </Form.Field>
-                    <Form.Field>
-                        <Image src={photo} size='small'></Image>
-                        <Input>
-                            <input type='file' accept="image/png, image/jpeg" onChange={(event) => {
-                            let fr = new FileReader()
-                            if(event?.target?.files?.[0]){
-                                fr.readAsDataURL(event.target.files[0])
-                            }
-                            // Adding image cropper here
 
-                            fr.onload = () => {
-                            //     (<ReactCrop
-                            //     src = {crop_state}
-                            //     crop={crop_state.crop}
-                            //     ruleOfThirds
-                            //     onImageLoaded={this.onImageLoaded}
-                            //     onComplete={this.onCropComplete}
-                            //     onChange={this.onCropChange}
-                            //   />)
-                                setPhoto(fr.result);
-                            }
-                        }}></input>
-                        </Input>
-                    </Form.Field>
-                    <Button type='submit'>Submit</Button>
-                </Form>
-            </div>
+        {props.login ? null : <Redirect to={LOGIN}/>}
+        {didUpdate ? <Redirect to={PROFILE}/> : null}
+        <div className='editFormbox'>
+            <h1>New Edits</h1>
+            <Form onSubmit={(event) => handleSubmit(event, firebase, photo, props.profile.uid, setUpdate)}>
+                <Form.Field>
+                    <label>Bio</label>
+                    <TextArea value ={bio} onChange = {(event, value) => setBio(event.target.value)}/>
+                </Form.Field>
+                <Form.Field>
+                    <label>Name</label>
+                    <input placeholder='Name...' value={props.profile.name}/>
+                </Form.Field>
+                <Form.Field>
+                    <label>Location</label>
+                    <input placeholder='City...' value={props.profile.location}/>
+                </Form.Field>
+                <Form.Field>
+                    {/* <ImageCrop></ImageCrop> */}
+                    <Input>
+                        <div><ReactCrop 
+                        src = {photo} 
+                        crop = {crop} 
+                        onChange = {(new_crop) =>cropSetter(new_crop)}
+                        onImageLoaded = {handleImageLoaded}
+                        onComplete = {handleOnCropComplete}
+                        circularCrop = {true}
+                        /></div>
+
+                        <input type='file' accept="image/png, image/jpeg" onChange={(event) => {
+                        let fr = new FileReader()
+
+                        if(event?.target?.files?.[0]){
+                            fr.readAsDataURL(event.target.files[0])
+                        }
+                        fr.onload = () => {
+                            setPhoto(fr.result);
+                        }
+                    }}></input>
+                    </Input>
+                    
+
+                </Form.Field>
+                <Button type='submit'>Submit</Button>
+            </Form>
         </div>
+    </div>
     )
+    
+    
 }
 
+const handleImageLoaded = (image) =>{
+    console.log(image)
+}
 
-
+const handleOnCropComplete = (crop, pixelCrop) => {
+     console.log(crop,pixelCrop)
+}
 
 const handleSubmit = (event, firebase, photo, uid, setUpdate) => {
     event.preventDefault();
