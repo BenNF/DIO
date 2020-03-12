@@ -6,16 +6,14 @@ import {PROFILE, LOGIN} from "../routing/routes"
 import {LogOut} from "../actions/authActions"
 import {Button, TextArea} from "semantic-ui-react"
 import CreateEvent from "./CreateEvent"
+import EventBrowser from "./EventBrowser"
 
 const Home = (props) => {
     //TODO map state into MENU instead of Home
-    console.log(props)
     return (
         <div className="Home">
             <Menu login={props.login} logOut={props.logOut} profile={props.profile} title='DIO -- do it yourself'></Menu>
-            <h2>This is the home page!</h2>
-            <h3>Some other text</h3>
-            <h4>Some third text</h4>
+            <EventBrowser></EventBrowser>
         </div>
     )
 }

@@ -13,6 +13,7 @@ import {
 import {connect} from "react-redux"
 import {FirebaseContext} from "../store/Firebase"
 import "react-datepicker/dist/react-datepicker.css";
+import {createEvent} from "../actions/eventActions"
 import DatePicker from "react-datepicker"
 import LocationPicker from 'react-location-picker';
 //TODO add location to this
@@ -46,7 +47,8 @@ const CreateEvent = (props) => {
                 <Form
                     onSubmit={(event) => {
                     setLoading(true);
-                    handleSubmit(event, firebase, photo, date, props.profile).then(() => {
+                    handleSubmit(event, firebase, photo, date, props.profile).then((event) => {
+                        props.createEventAction(event);
                         setPhoto(null);
                         setOpen(false);
                         setLoading(false);
@@ -104,8 +106,11 @@ const handleSubmit = async(event, fb, photoString, date, profile) => {
         photo: photo,
         hostName: profile.name,
         hostID: profile.uid,
+        hostPhoto: profile.profilePic,
+        attending: []
     }
     const id = await fb.doPushEvent(eventData)
+    return eventData;
 }
 
 const mapStateToProps = (state) => {
@@ -115,6 +120,8 @@ const mapStateToProps = (state) => {
     }
 }
 const mapDispatchToProps = (dispatch) => {
-    return {}
+    return {
+        createEventAction : (event) => dispatch(createEvent(event))
+    }
 }
 export default connect(mapStateToProps, mapDispatchToProps)(CreateEvent);

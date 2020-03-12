@@ -50,9 +50,19 @@ class Firebase {
     doUpdateUserProfile = (uid, profile) => {
         return this.db.collection(userCollection).doc(uid).update(profile);
     }
+
     doPushEvent = (event) => {
         return this.db.collection(eventColection).add(event)
     }
+
+    doLoadAllEvents = () =>{
+        return this.db.collection(eventColection).get();
+    }
+
+    doAddLoadEventListener = (callback) => {
+        return this.db.collection(eventColection).onSnapshot(callback);
+    }
+
 
     doUploadImage = (img, path) => {
         return this
