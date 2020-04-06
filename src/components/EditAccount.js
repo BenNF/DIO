@@ -9,7 +9,7 @@ import ReactDOM from "react-dom";
 import ReactCrop from "react-image-crop";
 import 'react-image-crop/dist/ReactCrop.css';
 import "./styles.css"
-import ImageCrop from "./ImageCrop"
+import {CropImage} from "./ImageCrop"
 
 
 
@@ -18,7 +18,7 @@ const Account = (props) => {
     const [didUpdate, setUpdate] = useState(false);
     const [bio, setBio] = useState(props.profile.bio);
     const firebase = useContext(FirebaseContext);
-
+    // const []
     const [crop,cropSetter] = useState({
         aspect: 1/1
     });
@@ -46,30 +46,11 @@ const Account = (props) => {
                     <input placeholder='City...' value={props.profile.location}/>
                 </Form.Field>
                 <Form.Field>
-                    {/* <ImageCrop></ImageCrop> */}
-                    <Input>
-                        <div><ReactCrop 
-                        src = {photo} 
-                        crop = {crop} 
-                        onChange = {(new_crop) =>cropSetter(new_crop)}
-                        onImageLoaded = {handleImageLoaded}
-                        onComplete = {handleOnCropComplete}
-                        circularCrop = {true}
-                        /></div>
-
-                        <input type='file' accept="image/png, image/jpeg" onChange={(event) => {
-                        let fr = new FileReader()
-
-                        if(event?.target?.files?.[0]){
-                            fr.readAsDataURL(event.target.files[0])
-                        }
-                        fr.onload = () => {
-                            setPhoto(fr.result);
-                        }
-                    }}></input>
-                    </Input>
-                    
-
+                    <div>
+                        <Image src={photo} size='small'></Image>
+                    </div>
+                    {/* I need an onClick for CropImage. Pass the setter function into CropImage */}
+                    <CropImage onSubmit = {(event) => {setPhoto(event.CropImage.photo)}}></CropImage> {/*custom modal here*/}
                 </Form.Field>
                 <Button type='submit'>Submit</Button>
             </Form>
