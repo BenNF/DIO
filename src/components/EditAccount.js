@@ -47,10 +47,10 @@ const Account = (props) => {
                 </Form.Field>
                 <Form.Field>
                     <div>
-                        <Image src={photo} size='small'></Image>
+                        <Image id ='accountPhoto' src={photo} size='small'></Image>
                     </div>
                     {/* I need an onClick for CropImage. Pass the setter function into CropImage */}
-                    <CropImage photo = {photo} setPhoto = {setPhoto}></CropImage> {/*custom modal here*/}
+                    <CropImage photo = {photo} setPhoto = {(val ) => {console.log(val); setPhoto(val)}}></CropImage> {/*custom modal here*/}
                 </Form.Field>
                 <Button type='submit'>Submit</Button>
             </Form>

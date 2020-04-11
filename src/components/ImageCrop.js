@@ -26,7 +26,7 @@ export const CropImage = (props) => {
         <Modal
             closeIcon={< Icon name = 'close' onClick = {
             () => setOpen(false)
-        } > </Icon>}
+        }> </Icon>}
             open={open}
             trigger={< Button onClick = {
             () => setOpen(true)
@@ -40,17 +40,7 @@ export const CropImage = (props) => {
                             <Loader/>
                         </Dimmer>
                     : null}
-                <Form 
-                onSubmit={() =>  {
-                    const croppedImageUrl = getCroppedImg(
-                        props.photo,
-                        crop,
-                        'newFile.jpeg'
-                    );
-                    props.setPhoto(croppedImageUrl);
-                    setOpen(false);
-                    setLoading(false);
-                }}>
+                <Form>
                     <Form.Field>
                         <Input>
                             <div>
@@ -76,7 +66,19 @@ export const CropImage = (props) => {
                             </input>
                         </Input>
                     <div>
-                        <Button type='submit'>Submit</Button>
+                        <Button onClick = { () => {
+                             getCroppedImg(
+                                props.photo,
+                                crop,
+                                props.setPhoto
+                            ).then(result => {
+                                console.log(result)
+                                props.setPhoto(result)
+                                setLoading(false);
+                                setOpen(false);
+                            })
+                           
+                            }}>Submit</Button>
                     </div>
 
                     </Form.Field>
@@ -96,37 +98,30 @@ const handleOnCropComplete = (crop, pixelCrop) => {
 }
 
 
-const getCroppedImg = (image, crop, fileName) => {
+
+const getCroppedImg = (image, crop, setPhoto) => {
     const canvas = document.createElement('canvas');
-    const canvas2 = document.createElement('canvas');
     const scaleX = image.naturalWidth / image.width;
     const scaleY = image.naturalHeight / image.height;
     canvas.width = crop.width;
     canvas.height = crop.height;
     const ctx = canvas.getContext('2d');
-    const ctx2 = canvas.getContext('2d');
     // I am passing in a data URI image and not a HTML image
-    console.log(image)
-    let new_img = document.createElement('img')
-    console.log(new_img)
-    new_img.onload = () => { ctx2.drawImage(new_img, 0,0)}
-    new_img.src = image
     ctx.drawImage(
-      canvas2,
-      crop.x * scaleX,
-      crop.y * scaleY,
-      crop.width * scaleX,
-      crop.height * scaleY,
-      0,
-      0,
-      crop.width,
-      crop.height
-    );
-    console.log(ctx2)
-
-    return(
-        canvas.toDataURL()
+        document.getElementById("accountPhoto"),
+        crop.x * scaleX,
+        crop.y * scaleY,
+        crop.width * scaleX,
+        crop.height * scaleY,
+        0,
+        0,
+        crop.width,
+        crop.height
     )
+
+    return new Promise((resolve,reject) => {
+        resolve(canvas.toDataURL())
+    })
 }
 
 
