@@ -50,7 +50,7 @@ const Account = (props) => {
                         <Image src={photo} size='small'></Image>
                     </div>
                     {/* I need an onClick for CropImage. Pass the setter function into CropImage */}
-                    <CropImage onSubmit = {(event) => {setPhoto(event.CropImage.photo)}}></CropImage> {/*custom modal here*/}
+                    <CropImage photo = {photo} setPhoto = {setPhoto}></CropImage> {/*custom modal here*/}
                 </Form.Field>
                 <Button type='submit'>Submit</Button>
             </Form>

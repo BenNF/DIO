@@ -14,7 +14,6 @@ import ReactCrop from "react-image-crop";
 import 'react-image-crop/dist/ReactCrop.css';
 
 export const CropImage = (props) => {
-    const [photo,setPhoto] = useState(null)
     const [loading,setLoading] = useState(false);
     const [error,setError] = useState(null);
     const [open,setOpen] = useState(false);
@@ -44,11 +43,11 @@ export const CropImage = (props) => {
                 <Form 
                 onSubmit={() =>  {
                     const croppedImageUrl = getCroppedImg(
-                        photo,
+                        props.photo,
                         crop,
                         'newFile.jpeg'
                     );
-                    setPhoto(croppedImageUrl);
+                    props.setPhoto(croppedImageUrl);
                     setOpen(false);
                     setLoading(false);
                 }}>
@@ -56,11 +55,10 @@ export const CropImage = (props) => {
                         <Input>
                             <div>
                                 <ReactCrop 
-                                src = {photo} 
+                                src = {props.photo} 
                                 crop = {crop} 
                                 onChange = {(new_crop) =>cropSetter(new_crop)}
                                 onImageLoaded = {handleImageLoaded}
-                                onComplete = {handleOnCropComplete}
                                 circularCrop = {true}
                                 />
                             </div>
@@ -72,7 +70,7 @@ export const CropImage = (props) => {
                                 fr.readAsDataURL(event.target.files[0])
                             }
                             fr.onload = () => {
-                                setPhoto(fr.result);
+                                props.setPhoto(fr.result);
                             }
                             }}> 
                             </input>
@@ -94,19 +92,27 @@ const handleImageLoaded = (image) =>{
 
 const handleOnCropComplete = (crop, pixelCrop) => {
      console.log(crop,pixelCrop);
-    //  isFinished(true);
+    
 }
+
 
 const getCroppedImg = (image, crop, fileName) => {
     const canvas = document.createElement('canvas');
+    const canvas2 = document.createElement('canvas');
     const scaleX = image.naturalWidth / image.width;
     const scaleY = image.naturalHeight / image.height;
     canvas.width = crop.width;
     canvas.height = crop.height;
     const ctx = canvas.getContext('2d');
-
+    const ctx2 = canvas.getContext('2d');
+    // I am passing in a data URI image and not a HTML image
+    console.log(image)
+    let new_img = document.createElement('img')
+    console.log(new_img)
+    new_img.onload = () => { ctx2.drawImage(new_img, 0,0)}
+    new_img.src = image
     ctx.drawImage(
-      image,
+      canvas2,
       crop.x * scaleX,
       crop.y * scaleY,
       crop.width * scaleX,
@@ -116,20 +122,11 @@ const getCroppedImg = (image, crop, fileName) => {
       crop.width,
       crop.height
     );
+    console.log(ctx2)
 
-    return new Promise((resolve, reject) => {
-      canvas.toBlob(blob => {
-        if (!blob) {
-          //reject(new Error('Canvas is empty'));
-          console.error('Canvas is empty');
-          return;
-        }
-        blob.name = fileName;
-        window.URL.revokeObjectURL(this.fileUrl);
-        this.fileUrl = window.URL.createObjectURL(blob);
-        resolve(this.fileUrl);
-      }, 'image/jpeg');
-    });
+    return(
+        canvas.toDataURL()
+    )
 }
 
 
