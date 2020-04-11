@@ -6,6 +6,7 @@ import Login from "../components/Login"
 import SignUP from "../components/SignUp"
 import Profile from "../components/Profile"
 import EditAccount from "../components/EditAccount"
+import Event from "../components/Event"
 
 const Navigation = (props) => {
     return (
@@ -15,6 +16,7 @@ const Navigation = (props) => {
             <Route exact path= {SIGNUP} component = {SignUP}></Route>
             <Route exact path= {EDIT_ACCOUNT} component = {EditAccount}></Route>
             <Route path = {PROFILE} component = {Profile}></Route>
+            <Route path = {EVENT} component= {Event}></Route>
         </Switch>
     )
 }

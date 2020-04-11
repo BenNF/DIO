@@ -58,6 +58,10 @@ class Firebase {
     doLoadAllEvents = () =>{
         return this.db.collection(eventColection).get();
     }
+    
+    doLoadSingleEvent = (uid) => {
+        return this.db.collection(eventColection).doc(uid).get();
+    }
 
     doAddLoadEventListener = (callback) => {
         return this.db.collection(eventColection).onSnapshot(callback);

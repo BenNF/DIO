@@ -1,5 +1,6 @@
 import React, {useState, useContext, useEffect} from "react"
 import {connect} from "react-redux"
+import {Link} from "react-router-dom"
 import {Dimmer, Loader, Card, Pagination, Image} from "semantic-ui-react"
 import {loadEvents} from "../actions/eventActions"
 import {FirebaseContext} from "../store/Firebase"
@@ -40,21 +41,23 @@ const EventBrowser = (props) => {
 const EventCard = ({event}) => {
     return (
         <div className='eventGridItem'>
-            <Card>
-                <Image className ='eventImage' src={event.photo}></Image>
-                <Card.Content>
-                    <Card.Header>{event.name}</Card.Header>
-                    <Card.Meta>
-                        <span className='date'>{new Date(event.date.seconds * 1000).toDateString()} at {event.time}</span>
-                    </Card.Meta>
-                    <Card.Description>
-                        {event.description.slice(0, 100)}
-                    </Card.Description>
-                </Card.Content>
-                <Card.Content extra>
-                    {event.location}
-                </Card.Content>
-            </Card>
+            <Link to={'/events/' + event.uid}>
+                <Card>
+                    <Image className ='eventImage' src={event.photo}></Image>
+                    <Card.Content>
+                        <Card.Header>{event.name}</Card.Header>
+                        <Card.Meta>
+                            <span className='date'>{new Date(event.date.seconds * 1000).toDateString()} at {event.time}</span>
+                        </Card.Meta>
+                        <Card.Description>
+                            {event.description.slice(0, 100)}
+                        </Card.Description>
+                    </Card.Content>
+                    <Card.Content extra>
+                        {event.location}
+                    </Card.Content>
+                </Card>
+            </Link>
         </div>
     )
 }

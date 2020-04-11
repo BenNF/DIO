@@ -126,7 +126,7 @@
     height: 100%;
     width: 100%;
     margin: 5px;
-    background-color: #cccccc;
+    background-color: #f7f7f7;
     border: 1px solid gray;
     align-items: center;
 }
@@ -165,4 +165,47 @@
 }
 .eventGridItem{
     margin: 5px;
+}
+
+
+.event {
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.eventData {
+    height: 80%;
+    width: 70%;
+    background-color: #f7f7f7;
+    box-shadow: 0px 0px 4px gray;
+    border-radius: 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.eventImage{
+    width: 100%;
+}
+.eventData img {
+  max-width: 80%;
+  max-height: 30%;
+}
+
+.eventBottom {
+    display: flex;
+    margin: 10px;
+    width: 100%;
+    height: 100%;
+}
+
+.eventBottom .col {
+    display: flex;
+    flex-direction: column;
+    height: 90%;
+    margin: 15px;
+    width: 90%;
 }
