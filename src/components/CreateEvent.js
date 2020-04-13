@@ -60,6 +60,7 @@ const CreateEvent = (props) => {
                             <DatePicker selected={date} onChange={(date) => setDate(date)}></DatePicker>
                         </Form.Input>
                         <Form.Input required label='Time' placeholder="10:00 AM"></Form.Input>
+                        <Form.Input required label='Location' placeholder="123 Main Street Springfield USA"></Form.Input>
                     </Form.Group>
                     <Form.Input label='Description' required>
                         <TextArea></TextArea>
@@ -98,17 +99,20 @@ const handleSubmit = async(event, fb, photoString, date, profile) => {
             .ref
             .getDownloadURL();
     }
+    console.log(photo)
     const eventData = {
         name: event.target[0].value,
         date: date,
         time: event.target[2].value,
-        description: event.target[3].value,
+        location: event.target[3].value,
+        description: event.target[4].value,
         photo: photo,
         hostName: profile.name,
         hostID: profile.uid,
         hostPhoto: profile.profilePic,
         attending: []
     }
+    console.log(eventData)
     const id = await fb.doPushEvent(eventData)
     return eventData;
 }
